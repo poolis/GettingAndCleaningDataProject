@@ -27,15 +27,14 @@ colnames(Y_testData) <- c("activityid")
 subject_testData <- read.csv("UCI HAR Dataset/test/subject_test.txt", sep = "", header = FALSE)
 colnames(subject_testData) <- c("subject")
 testData <- cbind(subject_testData, Y_testData, X_testData)
-
+# Load activity labels
 activityLabels <- read.csv("UCI HAR Dataset/activity_labels.txt", sep = "", header = FALSE, colClasses = c("numeric", "character"))
 colnames(activityLabels) <- c("activityid", "activity")
-
-
 
 # Merge data together
 mergedData <- rbind(trainingData, testData)
 mergedDataWithLabels <- merge(mergedData, activityLabels, by = "activityid", all.x = TRUE)
+
 # Filter out non mean or std columns
 slimmedDown <- mergedDataWithLabels[ , grep("subject|activity$|mean[.][.]|std[.][.]", colnames(mergedDataWithLabels))]
 slimmedDown$subject <- as.factor(slimmedDown$subject)
@@ -43,8 +42,7 @@ slimmedDown$activity <- as.factor(slimmedDown$activity)
 
 
 # Aggregate for tidy data set
-aggregateColumnNames <- colnames(slimmedDown)
-aggregateColumnNames <- aggregateColumnNames[aggregateColumnNames != "subject" & aggregateColumnNames != "activity"]
-
 tidyDataSet <- ddply(slimmedDown, .(subject,activity), numcolwise(mean, na.rm = TRUE))
+
+# Write to file
 write.table(tidyDataSet, file = "tidydataset.txt", row.names = FALSE)
