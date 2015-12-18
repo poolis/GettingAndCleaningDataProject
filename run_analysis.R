@@ -1,5 +1,6 @@
 library(plyr)
 
+# Fetch the data if it isn't already downloaded
 url <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
 zipFileName <- "FUCI_HAR_Dataset.zip"
 if(!file.exists(zipFileName)){
@@ -36,7 +37,7 @@ mergedData <- rbind(trainingData, testData)
 mergedDataWithLabels <- merge(mergedData, activityLabels, by = "activityid", all.x = TRUE)
 
 # Filter out non mean or std columns
-slimmedDown <- mergedDataWithLabels[ , grep("subject|activity$|mean[.][.]|std[.][.]", colnames(mergedDataWithLabels))]
+slimmedDown <- mergedDataWithLabels[ , grep("subject|activity$|mean[.][.]$|std[.][.]$", colnames(mergedDataWithLabels))]
 slimmedDown$subject <- as.factor(slimmedDown$subject)
 slimmedDown$activity <- as.factor(slimmedDown$activity)
 
