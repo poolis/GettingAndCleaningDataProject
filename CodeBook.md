@@ -18,10 +18,19 @@ Please see ```run_analysis.R``` for exact details of the transformations.  ```RE
 
 ### tidydataset.txt
 
+#### Column definitions
+
 | Column | Description | 
 |--------|-------------|
 | subject|Identifier for the subject for the observation |
 | activity | Activity for the observation |
+| variable | Variable for this observation |
+| value    | Value of the variable for this observation |
+
+#### Variable descriptions
+
+| Variable | Descriptions |
+|----------|--------------|
 | tGravityAccMag.std.. | Time domain GravityAccMag std normalized to [-1, 1]. |
 | tBodyAccJerkMag.mean.. | Time domain BodyAccJerkMag mean normalized to [-1, 1]. |
 | tBodyAccJerkMag.std.. | Time domain BodyAccJerkMag std normalized to [-1, 1]. |

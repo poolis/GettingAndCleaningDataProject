@@ -8,10 +8,11 @@ In order to create the tidy dataset, please follow this set of instructions.
 
 ### Dependencies
 
-Please note that the ```plyr``` package is required.  To install that package, run this command:
+Please note that the ```plyr``` and ```reshape2``` packages are required.  To install that package, run this command:
 
 ```r
 > install.packages("plyr")
+> install.packages("reshape2")
 ```
 
 ### Create tidy data set

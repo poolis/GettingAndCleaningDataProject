@@ -1,4 +1,5 @@
 library(plyr)
+library(reshape2)
 
 # Fetch the data if it isn't already downloaded
 url <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
@@ -43,7 +44,10 @@ slimmedDown$activity <- as.factor(slimmedDown$activity)
 
 
 # Aggregate for tidy data set
-tidyDataSet <- ddply(slimmedDown, .(subject,activity), numcolwise(mean, na.rm = TRUE))
+almostTidyDataSet <- ddply(slimmedDown, .(subject,activity), numcolwise(mean, na.rm = TRUE))
+
+# Melt to make it narrow and tidy
+tidyDataSet <- melt(almostTidyDataSet, id=1:2, measure=3:20)
 
 # Write to file
 write.table(tidyDataSet, file = "tidydataset.txt", row.names = FALSE)
